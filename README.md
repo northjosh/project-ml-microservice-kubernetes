@@ -1,4 +1,4 @@
-[![northjosh](https://circleci.com/gh/northjosh/project-ml-microservices-kubernetes.svg?style=svg)](https://app.circleci.com/pipelines/github/northjosh/project-ml-microservice-kubernetes)
+[![northjosh](https://circleci.com/gh/northjosh/project-ml-microservice-kubernetes.svg?style=svg)](https://app.circleci.com/pipelines/github/northjosh/project-ml-microservice-kubernetes)
 
 ## Project Overview
 
@@ -51,3 +51,31 @@ source .devops/bin/activate
 - Setup and Configure Kubernetes locally
 - Create Flask app in Container
 - Run via kubectl
+
+### File Descriptions
+
+# app.py
+
+Pre-Trained Machine Learning Model to run predictions.
+
+# Dockerfile
+
+Contains pre-defined rules for building docker image.
+
+# make_predictions.sh
+
+Makes prediction on specified port.
+
+# Makefile
+
+# requirements.txt
+contains Python Packages required for microservice to run.
+
+# run_docker.sh
+Bash script for building image and running container locally.
+# run_kubernetes.sh
+Bash script for creating and running kubernetes cluster locally.
+
+# upload_docker.sh
+Bash Script for tagging and pushing image to remote repository.
+
