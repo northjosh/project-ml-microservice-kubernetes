@@ -1,5 +1,10 @@
-
 NAME                         READY   STATUS    RESTARTS   AGE
-prediction-5f9456758-6hdk8   1/1     Running   0          12m
+prediction-5f9456758-d4gh2   1/1     Running   0          2m22s
 Forwarding from 0.0.0.0:8000 -> 80
 Handling connection for 8000
+Port: 8000
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}

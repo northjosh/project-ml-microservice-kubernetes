@@ -2,80 +2,49 @@
 
 ## Project Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API.
+In this project, I will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API.
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
+I am given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
 
-### Project Tasks
+## Setting the Environment
 
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
+- **_ Create a virtualenv with Python 3.7 and activate it. Refer to this link for help on specifying the Python version in the virtualenv. Running on Ubuntu and Python 3.7 installed, I ran the following: _**
 
-- Test your project code using linting
-- Complete a Dockerfile to containerize this application
-- Deploy your containerized application using Docker and make a prediction
-- Improve the log statements in the source code for this application
-- Configure Kubernetes and create a Kubernetes cluster
-- Deploy a container using Kubernetes and make a prediction
-- Upload a complete Github repo with CircleCI to indicate that your code has been tested
-
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
-
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
-
----
-
-## Setup the Environment
-
-- Create a virtualenv with Python 3.7 and activate it. Refer to this link for help on specifying the Python version in the virtualenv.
-
-```bash
-python3 -m pip install --user virtualenv
-# You should have Python 3.7 available in your host.
-# Check the Python path using `which python3`
-# Use a command similar to this one:
-python3 -m virtualenv --python=<path-to-Python3.7> .devops
-source .devops/bin/activate
-```
-
+- Run `python3 -m pip install --user virtualenv` to install virtualenv.
+- Run `python3 -m virtualenv ~/.devops/bin/activate` .devops to create a virtual environment.
+- Run `source ~/.devops/bin/activate` to activate the virtual environment.
 - Run `make install` to install the necessary dependencies
+- Run `make lint' to lint Dockerfile and Python source code(with Hadolint and Pylint).
+- Run 'make all' to run the above two steps.
 
 ### Running `app.py`
 
 1. Standalone: `python app.py`
-2. Run in Docker: `./run_docker.sh`
+2. Run in Docker
+   - Run `./run_docker.sh`
+   - Next, run `./make_prediction.sh` to make a prediction.
 3. Run in Kubernetes: `./run_kubernetes.sh`
 
 ### Kubernetes Steps
 
 - Setup and Configure Docker locally
+  - Install docker by following the steps provided [here](https://docs.docker.com/engine/install/ubuntu/)
+  - Run `docker ps` to check if docker containers are running.
 - Setup and Configure Kubernetes locally
+      - Install minikube `curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64`
+      - Next,`sudo install minikube-linux-amd64 /usr/local/bin/minikube`
+      - Run `minikube start`. _PS: Setup might take a while, so don't fret!_
+      - Run `kubectl get pods` and/or `kubectl get deploy` to check active pods and deployments
+      -  Run `./run_kubernetes.sh` to crete kubernetes deployment
+      - Run `./make_prediction.sh` to make prediction.
+      - Copy Log info to `output_txt_files/kubernetes_out.txt`.
+  `
 - Create Flask app in Container
+
+  - Run `./run_docker.sh`
+  - Next, run `./make_prediction.sh` in a separate terminal to make a prediction
+  - run `./upload_docker.sh` to upload to remote repository. (Default is Dockerhub but you can modify to suit your preference eg. eks, gcr)
+
 - Run via kubectl
-
-### File Descriptions
-
-# app.py
-
-Pre-Trained Machine Learning Model to run predictions.
-
-# Dockerfile
-
-Contains pre-defined rules for building docker image.
-
-# make_predictions.sh
-
-Makes prediction on specified port.
-
-# Makefile
-
-# requirements.txt
-contains Python Packages required for microservice to run.
-
-# run_docker.sh
-Bash script for building image and running container locally.
-# run_kubernetes.sh
-Bash script for creating and running kubernetes cluster locally.
-
-# upload_docker.sh
-Bash Script for tagging and pushing image to remote repository.
-
+  - Run `./run_kubernetes.sh'
+  - Next, run `./make_prediction.sh` in a separate terminal to make a prediction.
